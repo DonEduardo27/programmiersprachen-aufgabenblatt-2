@@ -275,6 +275,49 @@ REQUIRE(m9.c==Approx(11.98f));
 REQUIRE(m9.d==Approx(-33.0f));
 }
 
+TEST_CASE("describe_Mat2_MatVek","[Mat2]")
+{
+Mat2 m1{1,2,3,4};
+Mat2 m2{3,1,-8,6};
+Mat2 m3{};
+Mat2 m4{0.3,-4.1,7.5,0};
+
+Vec2 v1{2,4};
+Vec2 v2{-1,1};
+Vec2 v3{3.33,5.9};
+
+Vec2 v4,v5,v6,v7;
+
+v4 = v1*m3;
+REQUIRE(v4.x==2);
+REQUIRE(v4.y==4);
+
+v5 = v1*m1;
+REQUIRE(v5.x==14);
+REQUIRE(v5.y==20);
+
+v6 = m2*v2;
+REQUIRE(v6.x==-2);
+REQUIRE(v6.y==14);
+
+v7 = v3*m4;
+REQUIRE(v7.x==Approx(45.249f));
+REQUIRE(v7.y==Approx(-13.653f));
+}
+TEST_CASE("describe_Mat2_Det","[Mat2]")
+{
+Mat2 m1{1,2,3,4};
+Mat2 m2{3,1,-8,6};
+Mat2 m3{};
+Mat2 m4{0.3,-4.1,7.5,0};
+
+/*REQUIRE(m1.det() == -2);
+REQUIRE(m2.det() == 51);
+REQUIRE(m3.det() == 1);
+REQUIRE(m4.det() == -1,23);*/
+}
+
+
 int main(int argc, char *argv[])
 {
   return Catch::Session().run(argc, argv);
