@@ -4,7 +4,9 @@ add_executable(example
   glew.c
   vec2.cpp
   mat2.cpp
-  example.cpp)
+  example.cpp
+  circle.cpp
+  rectangle.cpp)
 target_link_libraries(example
   glfw
   ${GLFW_LIBRARIES}
@@ -14,9 +16,10 @@ add_dependencies(example glfw ${COPY_BINARY})
 # Build tests
 add_executable(tests
   vec2.cpp
-  mat2.cpp 
-  tests.cpp)
+  mat2.cpp
+  circle.cpp 
+  tests.cpp
+  rectangle.cpp)
 target_link_libraries(tests
   ${GLFW_LIBRARIES})
 
-#add program hack 1001 0011 comitted murdero++++
