@@ -18,6 +18,13 @@ rad{100},
 v{v_}
 {}
 
+Circle::Circle(float rad_, Vec2 v_,color farb_):
+rad{rad_},
+v{v_},
+farb{farb_}
+{}
+
+
 void Circle::setradius(double r)
 {
 	rad=r;

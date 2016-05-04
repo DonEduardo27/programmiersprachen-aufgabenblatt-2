@@ -1,4 +1,5 @@
 #include "vec2.hpp"
+#include "color.hpp"
 #ifndef CIRCLE_HPP
 #define CIRCLE_HPP
 
@@ -8,9 +9,11 @@ public:
 Circle();
 Circle(Vec2 v);
 Circle(float rad, Vec2 v);
+Circle(float rad, Vec2 v,color farb);
 
 float rad;
-Vec2 v;    
+Vec2 v; 
+color farb;   
              //Sets Radius
     void setradius(double r);      
              //Gets Radius

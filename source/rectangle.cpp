@@ -10,6 +10,8 @@ v{v_},width{100},height{100}{}
 
 Rectangle::Rectangle(Vec2 v_, float w, float h):
 v{v_},width{w},height{h}{}
+Rectangle::Rectangle(Vec2 v_, float w, float h, color farb_):
+v{v_},width{w},height{h},farb{farb_}{}
 
 void Rectangle::setheight(float l)
 {
