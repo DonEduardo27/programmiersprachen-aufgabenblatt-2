@@ -3,6 +3,8 @@
 #include <math.h>
 #include "vec2.hpp"
 #include "mat2.hpp"
+#include "circle.hpp"
+#include "rectangle.hpp"
 
 TEST_CASE("describe_Vec2_Plus","[Vec2]")
 {
@@ -410,6 +412,36 @@ REQUIRE(m8.c == Approx( 0.598472));
 REQUIRE(m8.d == Approx(-0.801144));
 }
 
+
+TEST_CASE("describe_Circle","[Circle]")
+{
+Vec2 v{100,200};
+Circle kreis{20,v};
+
+REQUIRE(kreis.getradius() == 20);
+REQUIRE(kreis.diameter()  == 40);
+REQUIRE(kreis.area() ==Approx(1256.6368));
+REQUIRE(kreis.circum() == Approx(125.66368)); 
+kreis.setradius(2.22);
+REQUIRE(kreis.getradius() == Approx(2.22));
+}
+
+
+
+TEST_CASE("describe_Rect","[Rectangle]")
+{
+Vec2 v{300,500};
+Rectangle eck{v,43,65};
+
+REQUIRE(eck.getheight() == 65);
+REQUIRE(eck.getwidth()  == 43);
+REQUIRE(eck.perimeter() == 216);
+REQUIRE(eck.area() == 2795); 
+eck.setheight(5.34);
+eck.setwidth(4.36);
+REQUIRE(eck.getheight() == Approx(5.34));
+REQUIRE(eck.getwidth()  == Approx(4.36));
+}
 
 
 

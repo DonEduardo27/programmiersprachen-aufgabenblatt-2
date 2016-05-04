@@ -8,7 +8,7 @@ public:
 Circle();
 Circle(Vec2 v);
 Circle(float rad, Vec2 v);
-~Circle();
+
 float rad;
 Vec2 v;    
              //Sets Radius
