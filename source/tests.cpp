@@ -1,5 +1,6 @@
 #define CATCH_CONFIG_RUNNER
 #include <catch.hpp>
+#include <math.h>
 #include "vec2.hpp"
 #include "mat2.hpp"
 
@@ -311,11 +312,105 @@ Mat2 m2{3,1,-8,6};
 Mat2 m3{};
 Mat2 m4{0.3,-4.1,7.5,0};
 
-/*REQUIRE(m1.det() == -2);
-REQUIRE(m2.det() == 51);
+REQUIRE(m1.det() == -2);
+REQUIRE(m2.det() == 26);
 REQUIRE(m3.det() == 1);
-REQUIRE(m4.det() == -1,23);*/
+REQUIRE(m4.det() == Approx(30.75));
 }
+
+TEST_CASE("describe_Mat2_Inv","[Mat2]")
+{
+Mat2 m1{1,2,3,4};
+Mat2 m2{3,1,-8,6};
+Mat2 m3{};
+Mat2 m4{0.3,-4.1,7.5,0};
+
+Mat2 m5 =inverse(m1);
+REQUIRE(m5.a == -2);
+REQUIRE(m5.b == 1);
+REQUIRE(m5.c == Approx(1.5));
+REQUIRE(m5.d == Approx(-0.5)); 
+
+Mat2 m6 =inverse(m2);
+REQUIRE(m6.a == Approx(0.23077));
+REQUIRE(m6.b == Approx(-0.03846));
+REQUIRE(m6.c == Approx(0.30769));
+REQUIRE(m6.d == Approx(0.11538));
+
+Mat2 m7 =inverse(m3);
+REQUIRE(m7.a == 1);
+REQUIRE(m7.b == 0);
+REQUIRE(m7.c == 0);
+REQUIRE(m7.d == 1);
+
+Mat2 m8 =inverse(m4);
+REQUIRE(m8.a == 0);
+REQUIRE(m8.b == Approx(0.133333));
+REQUIRE(m8.c == Approx(-0.243902));
+REQUIRE(m8.d == Approx(0.009756));
+}
+
+TEST_CASE("describe_Mat2_Tra","[Mat2]")
+{
+Mat2 m1{1,2,3,4};
+Mat2 m2{3,1,-8,6};
+Mat2 m3{};
+Mat2 m4{0.3,-4.1,7.5,0};
+
+Mat2 m5 =transpose(m1);
+REQUIRE(m5.a == 1);
+REQUIRE(m5.b == 3);
+REQUIRE(m5.c == 2);
+REQUIRE(m5.d == 4); 
+
+Mat2 m6 =transpose(m2);
+REQUIRE(m6.a == 3 );
+REQUIRE(m6.b == -8);
+REQUIRE(m6.c == 1 );
+REQUIRE(m6.d == 6 );
+
+Mat2 m7 =transpose(m3);
+REQUIRE(m7.a == 1);
+REQUIRE(m7.b == 0);
+REQUIRE(m7.c == 0);
+REQUIRE(m7.d == 1);
+
+Mat2 m8 =transpose(m4);
+REQUIRE(m8.a == Approx(0.3));
+REQUIRE(m8.b == Approx(7.5));
+REQUIRE(m8.c == Approx(-4.1));
+REQUIRE(m8.d == 0);
+}
+
+TEST_CASE("describe_Mat2_Rot","[Mat2]")
+{
+Mat2 m5 = make_rotation_mat2 ( M_PI );
+Mat2 m6 = make_rotation_mat2 ( 1 );
+Mat2 m7 = make_rotation_mat2 ( 0 );
+Mat2 m8 = make_rotation_mat2 ( 2.5 );
+
+REQUIRE(m5.a == -1);
+REQUIRE(m5.b == Approx(0.0));
+REQUIRE(m5.c == Approx(0.0));
+REQUIRE(m5.d == -1); 
+
+REQUIRE(m6.a == Approx(0.540302) );
+REQUIRE(m6.b == Approx(-0.841471));
+REQUIRE(m6.c == Approx(0.841471) );
+REQUIRE(m6.d == Approx(0.540302) );
+
+REQUIRE(m7.a == 1);
+REQUIRE(m7.b == 0);
+REQUIRE(m7.c == 0);
+REQUIRE(m7.d == 1);
+
+REQUIRE(m8.a == Approx(-0.801144));
+REQUIRE(m8.b == Approx(-0.598472));
+REQUIRE(m8.c == Approx( 0.598472));
+REQUIRE(m8.d == Approx(-0.801144));
+}
+
+
 
 
 int main(int argc, char *argv[])

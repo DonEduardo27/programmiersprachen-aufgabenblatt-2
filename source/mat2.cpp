@@ -1,6 +1,7 @@
 #include "mat2.hpp"
 #include "vec2.hpp"
 #include <iostream>
+#include <math.h>
 
 Mat2::Mat2():
 a{1},
@@ -44,6 +45,15 @@ Vec2 operator*( Mat2 const & m , Vec2 const & v )
 	r.y = m.c * v.x + m.d * v.y;
 	return r;
 }
+Mat2 operator*( Mat2 const & m , float v )
+{
+	Mat2 n{m};
+	n.a*=v;
+	n.b*=v;
+	n.c*=v;
+	n.d*=v;
+	return n;
+}
 
 Vec2 operator*( Vec2 const & v , Mat2 const & m )
 {
@@ -53,13 +63,38 @@ Vec2 operator*( Vec2 const & v , Mat2 const & m )
 	return r;
 }
 
-float det ()
+float Mat2::det () const
 {
-	return 0;//a*d-c*b;
+	return a*d-c*b;
 }
-/*Mat2 inverse ( Mat2 const & m );
-Mat2 transpose ( Mat2 const & m );
-Mat2 mak e_ ro ta ti on _m at 2 ( float phi );*/
+Mat2 inverse ( Mat2 const & m )
+{
+	float det=m.det();
+	if(det!= 0.0f )
+		{
+			Mat2 n{m.d,-1*m.b,-1*m.c,m.a};
+			return n*(1/det);
+		}
+	else 
+		{
+			std::cout<<"ES wurde das Inverse einer Matrix mit det=0 gesucht! FEHLERRRRR!!"<<std::endl;
+			return m;
+		}
+}
+Mat2 transpose ( Mat2 const & m )
+{
+	Mat2 n{m.a,m.c,m.b,m.d};
+	return n;
+}
+Mat2 make_rotation_mat2 ( float phi )
+{
+	float Newa=cos(phi);
+	float Newb=-sin(phi);
+	float Newc=sin(phi);
+	float Newd=cos(phi);
+	Mat2 a{Newa,Newb,Newc,Newd};
+	return a;
+}//Mat2 mak e_ ro ta ti on _m at 2 ( float phi );      
 
 
 
