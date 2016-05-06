@@ -443,7 +443,34 @@ REQUIRE(eck.getheight() == Approx(5.34));
 REQUIRE(eck.getwidth()  == Approx(4.36));
 }
 
+TEST_CASE("describe_Risinside","[Rectangle]")
+{
+Vec2 v0{0.0,0.0};
+Vec2 v25{0.25,0.25};
+Vec2 v5{0.5,0.5};
+Vec2 v10{1.0,1.0};
+Rectangle eck{v25,0.5,0.5};
 
+REQUIRE(eck.isInside(v0) == false);
+REQUIRE(eck.isInside(v25) == true);
+REQUIRE(eck.isInside(v5) == true);
+REQUIRE(eck.isInside(v10) == false);
+
+}
+TEST_CASE("describe_Cisinside","[Circle]")
+{
+Vec2 v0{0.0,0.0};
+Vec2 v25{0.25,0.25};
+Vec2 v5{0.5,0.5};
+Vec2 v10{1.0,1.0};
+Circle kreis{0.4,v5};
+
+REQUIRE(kreis.isInside(v0) == false);
+REQUIRE(kreis.isInside(v25) == true);
+REQUIRE(kreis.isInside(v5) == true);
+REQUIRE(kreis.isInside(v10) == false);
+
+}
 
 int main(int argc, char *argv[])
 {

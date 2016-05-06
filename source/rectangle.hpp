@@ -1,5 +1,6 @@
 #include "vec2.hpp"
 #include "color.hpp"
+#include "window.hpp"
 #ifndef RECTANGLE_HPP
 #define RECTANGLE_HPP
 
@@ -16,8 +17,13 @@ float width;
 float height;
 			
 color farb;
+void draw(Window& win);
+void draw(Window& win, color c);
+void drawAusgemalt(Window& win);
+void drawAusgemalt(Window& win, color c);
 void setheight(float l);
 void setwidth(float w);
+bool isInside(Vec2 w);
 float getheight();
 float getwidth();
 float perimeter();

@@ -1,5 +1,6 @@
 #include "vec2.hpp"
 #include "color.hpp"
+#include "window.hpp"
 #ifndef CIRCLE_HPP
 #define CIRCLE_HPP
 
@@ -7,7 +8,6 @@ class Circle
 {
 public:
 Circle();
-Circle(Vec2 v);
 Circle(float rad, Vec2 v);
 Circle(float rad, Vec2 v,color farb);
 
@@ -24,6 +24,13 @@ color farb;
     double circum();
              //returns the diameter
     double diameter();  
+
+    bool isInside(Vec2 v);
+
+    void draw(Window& win);
+    void draw(Window& win,color c);
+    void drawAusgemalt(Window& win);
+    void drawAusgemalt(Window& win,color c);    
 };
 
 #endif

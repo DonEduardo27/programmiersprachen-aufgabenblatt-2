@@ -1,38 +1,62 @@
 #include "window.hpp"
 #include <utility>
 #include <cmath>
+#include "vec2.hpp"
+#include "mat2.hpp"
+#include "circle.hpp"
+#include "rectangle.hpp"
+#include "color.hpp"
+#include <vector>
 
 int main(int argc, char* argv[])
 {
-  Window win{std::make_pair(800,800)};
+  Window win{std::make_pair(500,500)};
+  auto t0 = win.get_time();
 
   while (!win.should_close()) {
     if (win.is_key_pressed(GLFW_KEY_ESCAPE)) {
       win.close();
     }
 
-    auto t = win.get_time();
-    float x1{0.5f + 0.5f * std::sin(t)};
-    float y1{0.5f + 0.5f * std::cos(t)};
+    std::vector<Vec2> vec(4);
+    std::vector<color> farb(5);
+    std::vector<Circle> kreise(2);
+    std::vector<Rectangle> eck(2);
+    
+    farb[4]={0,0,1};
 
-    float x2{0.5f + 0.5f * std::sin(2.0f*t)};
-    float y2{0.5f + 0.5f * std::cos(2.0f*t)};
+    vec[0]={0.1,0.2};
+    farb[0]={1.0,0.5,0.3};
+    eck[0]={vec[0],0.5,0.5,farb[0]};
+    eck[0].drawAusgemalt(win);
 
-    float x3{0.5f + 0.5f * std::sin(t-10.f)};
-    float y3{0.5f + 0.5f * std::cos(t-10.f)};
+    vec[1]={0.2,0.4};
+    farb[1]={0.0,0.5,1.0};
+    eck[1]={vec[1],0.6,0.2,farb[1]};
+    eck[1].draw(win);   
 
-    win.draw_point(x1, y1, 1.0f, 0.0f, 0.0f);
-    win.draw_point(x2, y2, 0.0f, 1.0f, 0.0f);
-    win.draw_point(x3, y3, 0.0f, 0.0f, 1.0f);
+    vec[2]={0.8,0.2};
+    //farb[2]={1.0,0.5,0.3};
+    kreise[0]={0.2 ,vec[2]};
+    kreise[0].drawAusgemalt(win);
+
+    vec[3]={0.1,0.8};
+    farb[3]={0.1,1.0,1.0};
+    kreise[1]={0.15 ,vec[3],farb[3]};
+    kreise[1].draw(win);   
 
     auto m = win.mouse_position();
-    win.draw_line(0.1f, 0.1f, 0.8f,0.1f, 1.0,0.0,0.0);
+    Vec2 maus{m.first,m.second};
 
-    win.draw_line(0.0f, m.second, 0.01f, m.second, 0.0, 0.0, 0.0);
-    win.draw_line(0.99f, m.second,1.0f, m.second, 0.0, 0.0, 0.0);
+    for (unsigned int i=0;i<kreise.size();i++)
+        {
+            if(kreise[i].isInside(maus) )kreise[i].drawAusgemalt(win,farb[4]);
+        }
+    for (unsigned int i=0;i<eck.size();i++)
+        {
+            if(eck[i].isInside(maus) )eck[i].drawAusgemalt(win,farb[4]);
+        }
 
-    win.draw_line(m.first, 0.0f, m.first, 0.01f, 0.0, 0.0, 0.0);
-    win.draw_line(m.first, 0.99f,m.first, 1.0f, 0.0, 0.0, 0.0);
 
     win.update();
   }

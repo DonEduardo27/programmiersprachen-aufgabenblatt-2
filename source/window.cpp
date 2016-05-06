@@ -7,7 +7,7 @@
 Window::Window(std::pair<int, int> const& windowsize)
   : m_window{nullptr}
   , m_size{windowsize}
-  , m_title("Fensterchen")
+  , m_title("Enormes Fenster")
   , m_mouse_position{}
   , m_mouse_button_flags{0}
   , m_keypressed{}
